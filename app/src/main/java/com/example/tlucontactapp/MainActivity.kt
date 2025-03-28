@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnStudentContacts: Button
 
     private var userRole: String? = null
+    private var userClassId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,19 +35,21 @@ class MainActivity : AppCompatActivity() {
         loadUserInfo()
 
         btnUnitContacts.setOnClickListener {
-            startActivity(Intent(this, UnitContactActivity::class.java))
+            startActivity(Intent(this, DepartmentContactActivity::class.java))
         }
 
         btnStaffContacts.setOnClickListener {
             if (userRole == "CBGV") {
                 startActivity(Intent(this, StaffContactActivity::class.java))
             } else {
-                Toast.makeText(this, "Bạn không có quyền xem danh bạ CBGV!", Toast.LENGTH_SHORT).show()
+                showToast("Bạn không có quyền xem danh bạ CBGV!")
             }
         }
 
         btnStudentContacts.setOnClickListener {
-            startActivity(Intent(this, StudentContactActivity::class.java))
+            val intent = Intent(this, StudentContactActivity::class.java)
+            intent.putExtra("CLASS_ID", userClassId)
+            startActivity(intent)
         }
     }
 
@@ -58,12 +61,17 @@ class MainActivity : AppCompatActivity() {
                 if (document.exists()) {
                     val fullName = document.getString("fullName") ?: "Người dùng"
                     userRole = document.getString("role")
+                    userClassId = document.getString("classId") // Lấy mã lớp của SV
 
                     tvWelcome.text = "Chào, $fullName!"
                 }
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Lỗi khi tải thông tin người dùng!", Toast.LENGTH_SHORT).show()
+                showToast("Lỗi khi tải thông tin người dùng!")
             }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }

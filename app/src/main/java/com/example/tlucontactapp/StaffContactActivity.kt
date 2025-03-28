@@ -2,18 +2,19 @@ package com.example.tlucontactapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tlucontactapp.adapters.ContactAdapter
-import com.example.tlucontactapp.models.Contact
+import com.example.tlucontactapp.adapters.StaffAdapter
+import com.example.tlucontactapp.models.Staff
 import com.google.firebase.firestore.FirebaseFirestore
 
 class StaffContactActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var contactAdapter: ContactAdapter
+    private lateinit var staffAdapter: StaffAdapter
     private val db = FirebaseFirestore.getInstance()
-    private val contactList = mutableListOf<Contact>()
+    private val staffList = mutableListOf<Staff>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,30 +23,30 @@ class StaffContactActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerViewContacts)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Khởi tạo Adapter trước khi tải dữ liệu
-        contactAdapter = ContactAdapter(contactList) { selectedContact ->
-            val intent = Intent(this, ContactDetailActivity::class.java)
-            intent.putExtra("CONTACT_ID", selectedContact.id) // Truyền ID để xem chi tiết
+        // Khởi tạo Adapter
+        staffAdapter = StaffAdapter(staffList) { selectedStaff ->
+            val intent = Intent(this, StaffDetailActivity::class.java)
+            intent.putExtra("STAFF_ID", selectedStaff.staffId) // Truyền ID để xem chi tiết
             startActivity(intent)
         }
-        recyclerView.adapter = contactAdapter
+        recyclerView.adapter = staffAdapter
 
         loadStaffContacts()
     }
 
     private fun loadStaffContacts() {
-        db.collection("Contacts").whereEqualTo("type", "CBGV")
+        db.collection("staffs") // Lấy dữ liệu từ "staffs"
             .get()
             .addOnSuccessListener { result ->
-                val newList = mutableListOf<Contact>()
+                val newList = mutableListOf<Staff>()
                 for (document in result) {
-                    val contact = document.toObject(Contact::class.java).copy(id = document.id)
-                    newList.add(contact)
+                    val staff = document.toObject(Staff::class.java).copy(staffId = document.id)
+                    newList.add(staff)
                 }
-                contactAdapter.updateList(newList) // Cập nhật danh sách mới
+                staffAdapter.updateList(newList) // Cập nhật danh sách mới
             }
-            .addOnFailureListener {
-                // Xử lý lỗi
+            .addOnFailureListener { e ->
+                Log.e("FirestoreError", "Lỗi khi lấy dữ liệu", e)
             }
     }
 }

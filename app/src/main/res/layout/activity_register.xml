@@ -12,6 +12,12 @@
         android:hint="Họ và tên" />
 
     <EditText
+        android:id="@+id/etCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="MSV / CBGV" />
+
+    <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,11 +30,22 @@
         android:layout_height="wrap_content"
         android:hint="Mật khẩu"
         android:inputType="textPassword" />
+    <Button
+        android:id="@+id/btnCheckVerification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Xác thực" />
 
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Đăng ký" />
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quay lại" />
 
 </LinearLayout>

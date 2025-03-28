@@ -15,7 +15,9 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
     private lateinit var etFullName: EditText
+    private lateinit var etCode: EditText
     private lateinit var btnRegister: Button
+    private lateinit var btnCheckVerification: Button // Nút kiểm tra xác thực
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,22 +29,26 @@ class RegisterActivity : AppCompatActivity() {
         etEmail = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
         etFullName = findViewById(R.id.etFullName)
+        etCode = findViewById(R.id.etCode)
         btnRegister = findViewById(R.id.btnRegister)
+        btnCheckVerification = findViewById(R.id.btnCheckVerification) // Thêm nút này trong XML
 
         btnRegister.setOnClickListener { registerUser() }
+        btnCheckVerification.setOnClickListener { checkEmailVerification() } // Kiểm tra xác thực
     }
 
     private fun registerUser() {
         val email = etEmail.text.toString().trim()
         val password = etPassword.text.toString().trim()
         val fullName = etFullName.text.toString().trim()
+        val userCode = etCode.text.toString().trim()
 
-        if (email.isEmpty() || password.isEmpty() || fullName.isEmpty()) {
+        if (email.isEmpty() || password.isEmpty() || fullName.isEmpty() || userCode.isEmpty()) {
             showToast("Vui lòng nhập đầy đủ thông tin!")
             return
         }
 
-        if (!email.endsWith("@e.tlu.edu.vn") && !email.endsWith("@e.tlu.edu.vn")) {
+        if (!email.endsWith("@e.tlu.edu.vn") && !email.endsWith("@gmail.com")) {
             showToast("Bạn phải sử dụng email của trường học!")
             return
         }
@@ -51,27 +57,40 @@ class RegisterActivity : AppCompatActivity() {
             .addOnSuccessListener { authResult ->
                 val user = authResult.user ?: return@addOnSuccessListener
                 user.sendEmailVerification().addOnSuccessListener {
-                    showToast("Mã xác thực đã gửi đến email. Vui lòng kiểm tra hộp thư!")
+                    showToast("Mã xác thực đã gửi đến email. Kiểm tra hộp thư rồi nhấn 'Kiểm tra xác thực'.")
                 }
-                saveUserToFirestore(user.uid, fullName, email)
             }
             .addOnFailureListener { e ->
                 showToast("Lỗi khi đăng ký: ${e.message}")
             }
     }
 
-    private fun saveUserToFirestore(userId: String, fullName: String, email: String) {
-        val role = if (email.endsWith("@e.tlu.edu.vn")) "CBGV" else "SV"
+    private fun checkEmailVerification() {
+        val user = auth.currentUser
+        user?.reload()?.addOnSuccessListener {
+            if (user.isEmailVerified) {
+                saveUserToFirestore(user.uid, etFullName.text.toString(), etEmail.text.toString(), etCode.text.toString())
+            } else {
+                showToast("Email chưa được xác thực. Vui lòng kiểm tra hộp thư!")
+            }
+        }?.addOnFailureListener { e ->
+            showToast("Lỗi khi kiểm tra xác thực: ${e.message}")
+        }
+    }
+
+    private fun saveUserToFirestore(userId: String, fullName: String, email: String, userCode: String) {
+        val role = if (email.endsWith("@gmail.com")) "CBGV" else "SV"
         val userData = hashMapOf(
             "fullName" to fullName,
             "email" to email,
+            "userCode" to userCode,
             "role" to role,
-            "isVerified" to false
+            "isVerified" to true // Chỉ lưu khi đã xác thực email
         )
 
         db.collection("users").document(userId).set(userData)
             .addOnSuccessListener {
-                showToast("Đăng ký thành công! Vui lòng xác thực email trước khi đăng nhập.")
+                showToast("Xác thực thành công! Tài khoản đã được lưu.")
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }

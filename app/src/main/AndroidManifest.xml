@@ -33,12 +33,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"/>
-        <activity android:name=".AddEditContactActivity" />
-        <activity android:name=".ContactDetailActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".UnitContactActivity" />
-        <activity android:name=".StaffContactActivity" />
+        <activity android:name=".DepartmentContactActivity" />
         <activity android:name=".StudentContactActivity" />
+        <activity android:name=".StaffContactActivity" />
+        <activity android:name=".UnitDetailActivity" />
+        <activity android:name=".StudentDetailActivity" />
+        <activity android:name=".StaffDetailActivity" />
+        <activity android:name=".DepartmentDetailActivity" />
 
 
     </application>

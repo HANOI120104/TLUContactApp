@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "813662521982",
-    "project_id": "contact-tlu-app",
-    "storage_bucket": "contact-tlu-app.firebasestorage.app"
+    "project_number": "955797380522",
+    "project_id": "contactapp-tlu",
+    "storage_bucket": "contactapp-tlu.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:813662521982:android:40a5a982d16b621ec8e62f",
+        "mobilesdk_app_id": "1:955797380522:android:de7efc117042d74717dfd3",
         "android_client_info": {
           "package_name": "com.example.tlucontactapp"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyD6dS1LJj884cExl6SbtgAtEaZIRtCXUpI"
+          "current_key": "AIzaSyCoJAwi45KVJ3i2NyNaF3q7FxJTsKbTndI"
         }
       ],
       "services": {

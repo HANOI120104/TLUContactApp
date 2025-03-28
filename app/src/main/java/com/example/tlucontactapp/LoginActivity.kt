@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-
 class LoginActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
@@ -64,7 +63,8 @@ class LoginActivity : AppCompatActivity() {
             .addOnSuccessListener { document ->
                 if (document.exists()) {
                     val role = document.getString("role") ?: "SV"
-                    navigateToHome(role)
+                    val classId = document.getString("classId") ?: ""
+                    navigateToHome(role, classId)
                 } else {
                     showToast("Tài khoản không tồn tại trong hệ thống!")
                 }
@@ -74,11 +74,10 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    private fun navigateToHome(role: String) {
-        val intent = if (role == "CBGV") {
-            Intent(this, StaffContactActivity::class.java)
-        } else {
-            Intent(this, StudentContactActivity::class.java)
+    private fun navigateToHome(role: String, classId: String) {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra("USER_ROLE", role)
+            putExtra("CLASS_ID", classId)
         }
         startActivity(intent)
         finish()
@@ -88,4 +87,3 @@ class LoginActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
-

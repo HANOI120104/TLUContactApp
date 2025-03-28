@@ -6,16 +6,15 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tlucontactapp.adapters.ContactAdapter
-import com.example.tlucontactapp.models.Contact
-import com.google.firebase.auth.FirebaseAuth
+import com.example.tlucontactapp.adapters.StudentAdapter
+import com.example.tlucontactapp.models.Student
 import com.google.firebase.firestore.FirebaseFirestore
 
 class StudentContactActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var contactAdapter: ContactAdapter
+    private lateinit var studentAdapter: StudentAdapter
     private val db = FirebaseFirestore.getInstance()
-    private val contactList = mutableListOf<Contact>()
+    private val studentList = mutableListOf<Student>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,32 +23,32 @@ class StudentContactActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerViewContacts)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Truyền callback khi click vào item
-        contactAdapter = ContactAdapter(contactList) { selectedContact ->
-            val intent = Intent(this, ContactDetailActivity::class.java)
-            intent.putExtra("CONTACT_ID", selectedContact.id) // Truyền ID để xem chi tiết
+        // Khởi tạo Adapter cho danh sách sinh viên
+        studentAdapter = StudentAdapter(studentList) { selectedStudent ->
+            val intent = Intent(this, StudentDetailActivity::class.java) // Đổi ContactDetailActivity thành DetailActivity
+            intent.putExtra("STUDENT_ID", selectedStudent.studentId) // Truyền ID để xem chi tiết
             startActivity(intent)
         }
-        recyclerView.adapter = contactAdapter
+
+        recyclerView.adapter = studentAdapter
 
         loadStudentContacts()
     }
 
     private fun loadStudentContacts() {
-        db.collection("Contacts").whereEqualTo("type", "SV")
+        db.collection("students") // Lấy dữ liệu từ collection "students"
             .get()
             .addOnSuccessListener { result ->
-                val newList = mutableListOf<Contact>()
+                val newList = mutableListOf<Student>()
                 for (document in result) {
-                    val contact = document.toObject(Contact::class.java)
-                    Log.d("FirestoreData", "Contact: ${document.id} - ${contact.name} - ${contact.phone}")
-                    newList.add(contact)
+                    val student = document.toObject(Student::class.java).copy(studentId = document.id)
+                    Log.d("FirestoreData", "Student: ${student.studentId} - ${student.fullName} - ${student.phone}")
+                    newList.add(student)
                 }
-                contactAdapter.updateList(newList)
+                studentAdapter.updateList(newList) // Cập nhật danh sách mới
             }
             .addOnFailureListener { e ->
                 Log.e("FirestoreError", "Lỗi khi lấy dữ liệu", e)
             }
     }
-
 }
