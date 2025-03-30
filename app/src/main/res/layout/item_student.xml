@@ -23,8 +23,7 @@
             android:layout_height="60dp"
             android:src="@drawable/avatar1"
             android:scaleType="centerCrop"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/circle_background"/>
+            android:layout_marginEnd="12dp"/>
 
         <!-- Thông Tin Sinh Viên -->
         <LinearLayout
@@ -52,9 +51,9 @@
                 <ImageView
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/ic_email"
-                    android:tint="@color/icon_color"
-                    android:layout_marginEnd="6dp"/>
+                    android:src="@drawable/icons8_email_24"
+                    android:layout_marginEnd="6dp"
+                    app:tint="@color/icon_color" />
 
                 <TextView
                     android:id="@+id/tvEmail"
@@ -75,9 +74,9 @@
                 <ImageView
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/ic_phone"
-                    android:tint="@color/icon_color"
-                    android:layout_marginEnd="6dp"/>
+                    android:src="@drawable/icons8_phone_24"
+                    android:layout_marginEnd="6dp"
+                    app:tint="@color/icon_color" />
 
                 <TextView
                     android:id="@+id/tvPhone"
@@ -98,9 +97,9 @@
                 <ImageView
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:src="@drawable/ic_class"
-                    android:tint="@color/icon_color"
-                    android:layout_marginEnd="6dp"/>
+                    android:src="@drawable/icons8_class_24"
+                    android:layout_marginEnd="6dp"
+                    app:tint="@color/icon_color" />
 
                 <TextView
                     android:id="@+id/tvClassName"

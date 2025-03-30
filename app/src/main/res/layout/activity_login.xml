@@ -33,9 +33,9 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_email"
-                    android:tint="@color/icon_color"
-                    android:layout_marginEnd="8dp"/>
+                    android:src="@drawable/icons8_email_24"
+                    android:layout_marginEnd="8dp"
+                    app:tint="@color/icon_color" />
 
                 <EditText
                     android:id="@+id/etEmail"
@@ -58,9 +58,9 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_lock"
-                    android:tint="@color/icon_color"
-                    android:layout_marginEnd="8dp"/>
+                    android:src="@drawable/icons8_lock_24"
+                    android:layout_marginEnd="8dp"
+                    app:tint="@color/icon_color" />
 
                 <EditText
                     android:id="@+id/etPassword"
@@ -80,9 +80,8 @@
                 android:backgroundTint="@color/primary"
                 android:textColor="@color/white"
                 android:layout_marginBottom="8dp"
-                android:drawableStart="@drawable/ic_login"
-                android:padding="12dp"
-                android:background="@drawable/button_background"/>
+                android:drawableStart="@drawable/icons8_login_24"
+                android:padding="12dp" />
 
             <!-- Register Button -->
             <Button
@@ -92,9 +91,8 @@
                 android:text="Đăng ký"
                 android:backgroundTint="@color/secondary"
                 android:textColor="@color/white"
-                android:drawableStart="@drawable/ic_register"
-                android:padding="12dp"
-                android:background="@drawable/button_background"/>
+                android:drawableStart="@drawable/icons8_register_24"
+                android:padding="12dp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

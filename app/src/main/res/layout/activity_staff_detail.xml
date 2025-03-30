@@ -36,9 +36,9 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_person"
-                        android:tint="@color/icon_color"
-                        android:layout_marginEnd="8dp"/>
+                        android:src="@drawable/icons8_person_24"
+                        android:layout_marginEnd="8dp"
+                        app:tint="@color/icon_color" />
 
                     <TextView
                         android:text="Tên Giảng Viên:"
@@ -67,9 +67,9 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_phone"
-                        android:tint="@color/icon_color"
-                        android:layout_marginEnd="8dp"/>
+                        android:src="@drawable/icons8_phone_24"
+                        android:layout_marginEnd="8dp"
+                        app:tint="@color/icon_color" />
 
                     <TextView
                         android:text="Số Điện Thoại:"
@@ -98,9 +98,9 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_email"
-                        android:tint="@color/icon_color"
-                        android:layout_marginEnd="8dp"/>
+                        android:src="@drawable/icons8_email_24"
+                        android:layout_marginEnd="8dp"
+                        app:tint="@color/icon_color" />
 
                     <TextView
                         android:text="Email:"
@@ -129,9 +129,9 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_work"
-                        android:tint="@color/icon_color"
-                        android:layout_marginEnd="8dp"/>
+                        android:src="@drawable/icons8_work_24"
+                        android:layout_marginEnd="8dp"
+                        app:tint="@color/icon_color" />
 
                     <TextView
                         android:text="Chức Vụ:"
@@ -160,9 +160,9 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/ic_call"
-                        android:tint="@color/icon_color_2"
-                        android:layout_marginEnd="8dp"/>
+                        android:src="@drawable/icons8_department_24"
+                        android:layout_marginEnd="8dp"
+                        app:tint="@color/icon_color" />
 
                     <TextView
                         android:text="Khoa:"
