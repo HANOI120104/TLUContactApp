@@ -7,6 +7,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
@@ -47,14 +49,22 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener { authResult ->
                 val user = authResult.user ?: return@addOnSuccessListener
+
+                // Kiểm tra xem email đã xác thực chưa
                 if (!user.isEmailVerified) {
                     showToast("Email chưa được xác thực. Vui lòng kiểm tra hộp thư.")
                     return@addOnSuccessListener
                 }
+
+                // Lấy thông tin từ Firestore
                 fetchUserRole(user.uid)
             }
             .addOnFailureListener { e ->
-                showToast("Lỗi đăng nhập: ${e.message}")
+                when (e) {
+                    is FirebaseAuthInvalidUserException -> showToast("Tài khoản không tồn tại!")
+                    is FirebaseAuthInvalidCredentialsException -> showToast("Email hoặc mật khẩu không chính xác!")
+                    else -> showToast("Lỗi đăng nhập: ${e.message}")
+                }
             }
     }
 
@@ -66,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
                     val classId = document.getString("classId") ?: ""
                     navigateToHome(role, classId)
                 } else {
-                    showToast("Tài khoản không tồn tại trong hệ thống!")
+                    showToast("Tài khoản chưa được đăng ký trong hệ thống!")
                 }
             }
             .addOnFailureListener { e ->
