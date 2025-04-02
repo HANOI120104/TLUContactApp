@@ -1,5 +1,7 @@
 package com.example.tlucontactapp.adapters
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +37,12 @@ class StudentAdapter(
             }
 
             itemView.setOnClickListener { onItemClick(student) }
+
+            tvPhone.setOnClickListener {
+                val intent = Intent(Intent.ACTION_DIAL)
+                intent.data = Uri.parse("tel:${student.phone}")
+                itemView.context.startActivity(intent)
+            }
         }
     }
 

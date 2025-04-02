@@ -31,5 +31,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Danh bạ Sinh viên" />
+    <Button
+        android:id="@+id/btnEditProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chỉnh sửa hồ sơ" />
+
 
 </LinearLayout>

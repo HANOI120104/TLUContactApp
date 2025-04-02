@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnUnitContacts: Button
     private lateinit var btnStaffContacts: Button
     private lateinit var btnStudentContacts: Button
-
+    private lateinit var btnEditProfile: Button
     private var userRole: String? = null
     private var userClassId: String? = null
 
@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         btnUnitContacts = findViewById(R.id.btnUnitContacts)
         btnStaffContacts = findViewById(R.id.btnStaffContacts)
         btnStudentContacts = findViewById(R.id.btnStudentContacts)
+        btnEditProfile = findViewById(R.id.btnEditProfile)
 
         loadUserInfo()
 
@@ -49,6 +50,11 @@ class MainActivity : AppCompatActivity() {
         btnStudentContacts.setOnClickListener {
             val intent = Intent(this, StudentContactActivity::class.java)
             intent.putExtra("CLASS_ID", userClassId)
+            startActivity(intent)
+        }
+
+        btnEditProfile.setOnClickListener {
+            val intent = Intent(this, EditProfileActivity::class.java)
             startActivity(intent)
         }
     }

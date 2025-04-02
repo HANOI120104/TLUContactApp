@@ -26,7 +26,7 @@ class DepartmentAdapter(
             tvUnitAddress.text = department.departmentAddress
             tvUnitPhone.text = department.departmentPhone
 
-            if (department.logoURL.isNotEmpty()) {
+            if (!department.logoURL.isNullOrEmpty()) {
                 Glide.with(itemView.context).load(department.logoURL).into(imgLogo)
             } else {
                 imgLogo.setImageResource(R.drawable.avatar1) // Ảnh mặc định
@@ -52,4 +52,5 @@ class DepartmentAdapter(
         notifyDataSetChanged()
     }
 }
+
 

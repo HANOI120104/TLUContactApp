@@ -31,7 +31,7 @@ class StaffAdapter(
             if (staff.photoURL.isNotEmpty()) {
                 Glide.with(itemView.context).load(staff.photoURL).into(imgProfile)
             } else {
-                imgProfile.setImageResource(R.drawable.avatar1) // Ảnh mặc định
+                imgProfile.setImageResource(R.drawable.avatar1)
             }
 
             itemView.setOnClickListener { onItemClick(staff) }
